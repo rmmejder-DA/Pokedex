@@ -21,11 +21,14 @@ function pokedexTemplate(i, type, imageUrl, cryUrl, pokemonDetails) {
             </header>
 
             <div class="pokemon-details">
-                <img class="pokemon-image-dialog" src="${imageUrl}" alt="${allPkm[i].name}">
+                <div class="pokemon-image-bckColor${allPkm[i].name}">
+                    <img class="pokemon-image-dialog" src="${imageUrl}" alt="${allPkm[i].name}">
+                </div>
+                <div class="seperatorplusBtn">
                 <div class="separator"></div>
-
                 <button onclick="nextInfo(${i})">More Info</button>
-
+                </div>
+                
                 <div id="pokemonInfo${i}" class="pokemon-info">
                 <p>Height: ${pokemonDetails.height}</p>
                 <p>Weight: ${pokemonDetails.weight}</p>

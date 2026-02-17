@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <link rel="icon" href="./pokeball.png">
     <link rel="stylesheet" href="colors.css">
     <link rel="stylesheet" href="style.css">
     <script src="template.js"></script>
@@ -20,14 +20,15 @@
     </header>
     <main class="page_content">
         <div id="loading" class="LOAD">
-            <div class="loader"></div>
-            <p>Loading...</p>
+            <div class="loader"><img src="./ball-loading.png" alt="Loading...Ball"></div>
+            <p class="loader-p">Loading...</p>
         </div>
         <div id="pokedex" class="pokedex"></div>
-        <button id="loadButton" onclick="nextLoading()">More...</button>
+        <button class="more" id="loadButton" onclick="nextLoading()">More...</button>
     </main>
     <footer class="footer">
-
+        <img style="width: 32px;" src="./pokeball.png" alt="Pokeball">
+         <p>Made by <a class="foot_a" href="https://github.com/rmmejder-DA" target="_blank" rel="noopener">Max Mejder</a></p>
     </footer>
 
     <script src="script.js"></script>

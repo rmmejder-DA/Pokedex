@@ -1,22 +1,26 @@
-
 const limit = 10;
 let offset = 0;
 let allPkm = [];
 
 async function showLoadSpinner() {
-    let loadingElement = document.getElementById("loading");
     document.getElementById("loadButton").style.display = "none";
     document.getElementById("pokedex").style.display = "none";
     document.getElementById("searchBar").style.display = "none";
     document.getElementsByClassName("LOAD")[0].style.flexDirection = "column";
+    Timeout();
+    let loadingElement = document.getElementById("loading");
+    loadingElement.style.display = "flex";
+    await pokedexLoad(offset);
+}
+
+function Timeout() {
+    let loadingElement = document.getElementById("loading");
     setTimeout(() => {
         loadingElement.style.display = "none";
         document.getElementById("pokedex").style.display = "flex";
         document.getElementById("searchBar").style.display = "block";
         document.getElementById("loadButton").style.display = "block";
-    }, 500);
-    loadingElement.style.display = "flex";
-    await pokedexLoad(offset);
+    }, 3000);
 }
 
 async function pokedexLoad(currentOffset = 0) {
@@ -85,7 +89,6 @@ function searchPokemon() {
     } else if (loadButton) {
         loadButton.style.display = "block";
     }
-    
 }
 
 function openDialog(index, cryUrl) {
@@ -105,3 +108,9 @@ function closeDialog(index) {
         dialog.close();
     }
 }
+
+document.addEventListener('click', function (event) {
+    if (event.target.tagName === 'DIALOG') {
+        event.target.close();
+    }
+});
