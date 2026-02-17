@@ -1,0 +1,146 @@
+.pokemon-image-bckColorcaterpie {
+    background-color: #a8b820;
+}
+.pokemon-image-bckColorbulbasaur {
+    background-color: #78C850;
+}
+.pokemon-image-bckColorivysaur {
+    background-color: #78C850;
+}
+.pokemon-image-bckColorvenusaur {
+    background-color: #78C850;
+}
+.pokemon-image-bckColorcharmander {
+    background-color: #F08030;
+}
+.pokemon-image-bckColorcharmeleon {
+    background-color: #F08030;
+}
+.pokemon-image-bckColorcharizard {
+    background-color: #F08030;
+}
+.pokemon-image-bckColorsquirtle {
+    background-color: #6890F0;
+}
+.pokemon-image-bckColorwartortle {
+    background-color: #6890F0;
+}
+.pokemon-image-bckColorblastoise {
+    background-color: #6890F0;
+}
+
+.pokemon-image-bckColormetapod {
+    background-color: #78C850;
+}
+
+.pokemon-image-bckColorbutterfree {
+    background-color: #7b72b1;
+}
+
+.pokemon-image-bckColorweedle {
+    background-color: #cd7310;
+}
+
+.pokemon-image-bckColorkakuna {
+    background-color: #f6cd31;
+}
+
+.pokemon-image-bckColorbeedrill {
+    background-color: #f4b438;
+}
+
+.pokemon-image-bckColorpidgey {
+    background-color: #b9a66c;
+}
+
+.pokemon-image-bckColorpidgeotto {
+    background-color: #ffe68b;
+}
+
+.pokemon-image-bckColorpidgeot {
+    background-color: #e6b462;
+}
+
+.pokemon-image-bckColorrattata {
+    background-color: #b473bd;
+}
+
+.pokemon-image-bckColorraticate {
+    background-color: #f4b438;
+}
+.pokemon-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #082129;
+    height: 50px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+.pokemon {
+    display: flex;
+    border-radius: 20px;
+    margin: 10px;
+    flex-direction: column;
+}
+
+.pokemon-image {
+    width: 150px;
+    height: 150px;
+}
+
+.pokemon-image:hover {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
+}
+
+.pokemon-image-dialog {
+    width: 200px;
+    height: 200px;
+}
+
+.separator {
+    height: 2px;
+    background-color: white;
+    margin: 10px 0;
+    width: 100%;
+}
+
+.pokedex {
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 1440px;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.dialog-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color:#07181e;
+    padding: 10px;
+}
+button {
+    padding: 10px 20px;
+    background-color: #f4b438;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 12px;
+}
+button.close-button {
+    background-color: #f44336;
+    margin-bottom: unset;
+    padding: 5px 10px;
+}
+.evolution {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}

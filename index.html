@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="colors.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="template.js"></script>
+    <title>POKEDEX</title>
+</head>
+
+<body onload="showLoadSpinner()">
+    <header class="header">
+        <div class="header-content">
+            <h1>POKEDEX</h1>
+            <input type="search" id="searchBar" placeholder="Search for a pokemon..." oninput="searchPokemon()">
+        </div>
+    </header>
+    <main class="page_content">
+        <div id="loading" class="LOAD">
+            <div class="loader"></div>
+            <p>Loading...</p>
+        </div>
+        <div id="pokedex" class="pokedex"></div>
+        <button id="loadButton" onclick="nextLoading()">More...</button>
+    </main>
+    <footer class="footer">
+
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
