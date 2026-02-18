@@ -9,7 +9,7 @@ function pokedexTemplate(i, type, imageUrl, cryUrl, pokemonDetails) {
             </div>
             <footer class="pokemon-footer">
             <div class="pokemon-type">
-            <p class="pokemon-type-text">${type}</p>
+            <img class="pokemon-type-icon" src="${img[type]}" alt="${type}">
             </div>
             </footer>
         </div>
@@ -24,10 +24,13 @@ function pokedexTemplate(i, type, imageUrl, cryUrl, pokemonDetails) {
                 <div class="pokemon-image-bckColor${allPkm[i].name}">
                     <img class="pokemon-image-dialog" src="${imageUrl}" alt="${allPkm[i].name}">
                 </div>
-                <div class="seperatorplusBtn">
-                <div class="separator"></div>
-                <button onclick="nextInfo(${i})">More Info</button>
+
+                <div class="span">
+                    <span onclick="Info(${i})" class="btnunderImg"></span>
+                    <span onclick="evolution(${i})" class="btnunderImg"></span>
+                    <span onclick="statistic(${i})" class="btnunderImg"></span>
                 </div>
+       
                 
                 <div id="pokemonInfo${i}" class="pokemon-info">
                 <p>Height: ${pokemonDetails.height}</p>
@@ -43,10 +46,10 @@ function pokedexTemplate(i, type, imageUrl, cryUrl, pokemonDetails) {
                 <img src="${pokemonDetails.sprites?.front_shiny || ""}" alt="${allPkm[i].name}">
             </div>
 
-            <div class="pokemon-details" id="HP${i}" style="display:none;">
+            <div class="pokemon-details-none" id="HP${i}" style="display:none;">
                 <p>Base Experience: ${pokemonDetails.base_experience || "N/A"}</p>
-                <p>Abilities: ${pokemonDetails.abilities?.map(ability => ability?.ability?.name).join(", ") || "N/A"}</p>
-                <p>Stats: ${pokemonDetails.stats?.map(stat => `${stat?.stat?.name}: ${stat?.base_stat}`).join(", ") || "N/A"}</p>
+                <p>Abilities: ${pokemonDetails.abilities?.map(ability => ability?.ability?.name)}</p>
+                <p>Stats: ${pokemonDetails.stats?.map(stat => `${stat?.stat?.name}: ${stat?.base_stat}`)}</p>
             </div>
             </dialog>`;
 }

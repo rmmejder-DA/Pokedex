@@ -2,6 +2,17 @@ const limit = 10;
 let offset = 0;
 let allPkm = [];
 
+function capitalizeString() {
+    let pokedexElement = document.getElementById("pokedex");
+    let H2 = pokedexElement.getElementsByTagName("h2");
+    for (let i = 0; i < H2.length; i++) {
+        let string = H2[i].innerHTML;
+        if (string.length > 0) {
+            H2[i].innerHTML = string[0].toUpperCase() + string.slice(1);
+        }
+    }
+}
+
 async function showLoadSpinner() {
     document.getElementById("loadButton").style.display = "none";
     document.getElementById("pokedex").style.display = "none";
@@ -32,11 +43,12 @@ async function pokedexLoad(currentOffset = 0) {
     pokedexContainer.innerHTML = "";
     for (let i = 0; i < allPkm.length; i++) {
         let pokemonDetails = await fetch(allPkm[i].url).then(res => res.json());
-        let type = pokemonDetails.types?.[0]?.type?.name || "Unknown";
+        let type = pokemonDetails.types[0].type.name;
         let imageUrl = pokemonDetails.sprites?.front_default || "";
-        let cryUrl = pokemonDetails.cries?.latest || "";
+        let cryUrl = `https://play.pokemonshowdown.com/audio/cries/${allPkm[i].name}.mp3`;
         pokedexContainer.innerHTML += pokedexTemplate(i, type, imageUrl, cryUrl, pokemonDetails);
     }
+    capitalizeString();
 }
 
 function nextLoading() {
@@ -47,24 +59,36 @@ function nextLoading() {
     showLoadSpinner();
 }
 
-function nextInfo(index) {
+function Info(index) {
     let pokemonInfoElement = document.getElementById(`pokemonInfo${index}`);
     let evolutionElement = document.getElementById(`evolution${index}`);
     let hpElement = document.getElementById(`HP${index}`);
     if (pokemonInfoElement && evolutionElement && hpElement) {
-        if (pokemonInfoElement.style.display !== "none") {
-            pokemonInfoElement.style.display = "none";
-            evolutionElement.style.display = "flex";
-            hpElement.style.display = "none";
-        } else if (evolutionElement.style.display !== "none") {
-            pokemonInfoElement.style.display = "none";
-            evolutionElement.style.display = "none";
-            hpElement.style.display = "flex";
-        } else {
-            pokemonInfoElement.style.display = "flex";
-            evolutionElement.style.display = "none";
-            hpElement.style.display = "none";
-        }
+        pokemonInfoElement.style.display = "flex";
+        evolutionElement.style.display = "none";
+        hpElement.style.display = "none";
+    }
+}
+
+function evolution(index) {
+    let pokemonInfoElement = document.getElementById(`pokemonInfo${index}`);
+    let evolutionElement = document.getElementById(`evolution${index}`);
+    let hpElement = document.getElementById(`HP${index}`);
+    if (pokemonInfoElement && evolutionElement && hpElement) {
+        pokemonInfoElement.style.display = "none";
+        evolutionElement.style.display = "flex";
+        hpElement.style.display = "none";
+    }
+}
+
+function statistic(index) {
+    let pokemonInfoElement = document.getElementById(`pokemonInfo${index}`);
+    let evolutionElement = document.getElementById(`evolution${index}`);
+    let hpElement = document.getElementById(`HP${index}`);
+    if (pokemonInfoElement && evolutionElement && hpElement) {
+        pokemonInfoElement.style.display = "none";
+        evolutionElement.style.display = "none";
+        hpElement.style.display = "flex";
     }
 }
 
@@ -94,6 +118,7 @@ function searchPokemon() {
 function openDialog(index, cryUrl) {
     let dialog = document.getElementById(`dialog${index}`);
     if (dialog) {
+        document.body.classList.add("noscroll");
         dialog.showModal();
         if (cryUrl) {
             let audio = new Audio(cryUrl);
@@ -105,6 +130,7 @@ function openDialog(index, cryUrl) {
 function closeDialog(index) {
     let dialog = document.getElementById(`dialog${index}`);
     if (dialog) {
+        document.body.classList.remove("noscroll");
         dialog.close();
     }
 }
