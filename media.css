@@ -7,19 +7,25 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        padding: 0 55px;
-        background-color: #f4b438;
+        background-color: transparent;
         border: none;
         border-radius: 5px;
-        color: white;
-        font-size: 18px;
         cursor: pointer;
-        width: 44px;
-        min-width: 44px;
-        min-height: 44px;
         font-size: 30px;
         color: tomato;
         font-weight: bolder;
+    }
+    .moreFlex:hover {
+        background-color: transparent;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 30px;
+        color: tomato;
+        font-weight: bolder;
+        filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
+        transform: rotateZ(-150deg);
+        transition: transform 0.3s ease;
     }
 }
 
@@ -28,19 +34,45 @@
         display: none !important;
     }
 }
+
 @media (max-width: 600px) {
     h1 {
-        font-size: 24px;
+        font-size: 24px!important;
+    }
+
+    .span {
+        font-size: 18px;
+        gap: 50px;
+    }
+
+    .btnunderImg {
+        width: 64px;
+    }
+
+    input {
+        padding: 5px!important;
+        border: none;
+        border-radius: 5px;
+        width: 142px !important;
+        max-width: unset;
+    }
+
+    .evolution img {
+        width: 100px;
+        height: 90px;
+    }
+    .footer {
+        gap: 27px!important;
+    }
+    .evolution img {
+    width: 100px!important;
+    height: 99px!important;
+    }
+    .evoDialog {
+    font-size: 20px!important;
 }
-input {
-    padding: 5px;
-    border: none;
-    border-radius: 5px;
-    width: 164px!important;
-    max-width: unset;
-}
-.moreFlex {
-    padding: unset;
-    border-radius: 50%;
-}
+    .moreFlex {
+        padding: unset;
+        border-radius: 50%;
+    }
 }

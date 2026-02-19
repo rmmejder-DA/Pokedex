@@ -9,7 +9,7 @@ function pokedexTemplate(i, type, imageUrl, cryUrl, pokemonDetails) {
             </div>
             <footer class="pokemon-footer">
             <div class="pokemon-type">
-            <img class="pokemon-type-icon" src="${img[type]}" alt="${type}">
+            <img id="pokemonTypeIcon${i}" class="pokemon-type-icon" src="${img[type]}" alt="${type}">
             </div>
             </footer>
         </div>
@@ -25,31 +25,31 @@ function pokedexTemplate(i, type, imageUrl, cryUrl, pokemonDetails) {
                     <img class="pokemon-image-dialog" src="${imageUrl}" alt="${allPkm[i].name}">
                 </div>
 
-                <div class="span">
-                    <span onclick="Info(${i})" class="btnunderImg"></span>
-                    <span onclick="evolution(${i})" class="btnunderImg"></span>
-                    <span onclick="statistic(${i})" class="btnunderImg"></span>
-                </div>
+                    <div class="span">
+                        <span onclick="Info(${i})" class="btnunderImgInfo"></span>
+                        <span onclick="evolution(${i})" class="btnunderImgEvo"></span>
+                        <span onclick="statistic(${i})" class="btnunderImgStat"></span>
+                    </div>
        
                 
-                <div id="pokemonInfo${i}" class="pokemon-info">
-                <p>Height: ${pokemonDetails.height}</p>
-                <p>Weight: ${pokemonDetails.weight}</p>
+                    <div id="pokemonInfo${i}" class="pokemon-info">
+                        <p>Height: ${pokemonDetails.height}</p>
+                        <p>Weight: ${pokemonDetails.weight}</p>
+                    </div>
                 </div>
-            </div>
 
-            <div class="evolution" style="display:none;" id="evolution${i}">
-                <img src="${pokemonDetails.sprites?.front_default || ""}" alt="${allPkm[i].name}">
-                <p class="evoDialog">></p>
-                <img src="${pokemonDetails.sprites?.back_default || ""}" alt="${allPkm[i].name}">
-                <p class="evoDialog">></p>
-                <img src="${pokemonDetails.sprites?.front_shiny || ""}" alt="${allPkm[i].name}">
-            </div>
+                    <div class="evolution" style="display:none;" id="evolution${i}">
+                        <img src="${pokemonDetails.sprites?.front_default || ""}" alt="${allPkm[i].name}">
+                        <p class="evoDialog">></p>
+                        <img src="${pokemonDetails.sprites?.back_default || ""}" alt="${allPkm[i].name}">
+                        <p class="evoDialog">></p>
+                        <img src="${pokemonDetails.sprites?.front_shiny || ""}" alt="${allPkm[i].name}">
+                    </div>
 
-            <div class="pokemon-details-none" id="HP${i}" style="display:none;">
-                <p>Base Experience: ${pokemonDetails.base_experience || "N/A"}</p>
-                <p>Abilities: ${pokemonDetails.abilities?.map(ability => ability?.ability?.name)}</p>
-                <p>Stats: ${pokemonDetails.stats?.map(stat => `${stat?.stat?.name}: ${stat?.base_stat}`)}</p>
+                <div class="pokemon-details-none" id="HP${i}" style="display:none;">
+                    <p>Base Experience: ${pokemonDetails.base_experience || "N/A"}</p>
+                    <p>Abilities: ${pokemonDetails.abilities?.map(ability => ability?.ability?.name)}</p>
+                    <p>Stats: ${pokemonDetails.stats?.map(stat => `${stat?.stat?.name}: ${stat?.base_stat}`)}</p>
             </div>
             </dialog>`;
 }

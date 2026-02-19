@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 
 <head>
     <meta charset="UTF-8">
@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="colors.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="media.css">
+    <link rel="stylesheet" href="standard.css">
     <script src="database.js"></script>
     <script src="template.js"></script>
     <title>POKEDEX</title>
@@ -17,7 +18,7 @@
     <header class="header">
         <div class="header-content">
             <h1>POKEDEX</h1>
-            <input type="search" id="searchBar" placeholder="Search for a pokemon..." oninput="searchPokemon()">
+            <input type="search" id="searchBar" placeholder="Pokémonsuche" oninput="searchPokemon()">
         </div>
     </header>
     <main class="page_content">
@@ -29,9 +30,10 @@
         <button class="more" id="loadButton" onclick="nextLoading()">More...</button>
     </main>
     <footer class="footer">
+        <div class="footer-content">
         <img style="width: 32px;" src="./pokeball.png" alt="Pokeball">
-        <p>Made by <a class="foot_a" href="https://github.com/rmmejder-DA" target="_blank" rel="noopener">Max Mejder</a>
-        </p>
+        <p>Made by <a class="foot_a" href="https://github.com/rmmejder-DA" target="_blank" rel="noopener">Max Mejder</a></p>
+        </div> 
         <button class="moreFlex" id="loadButton" onclick="nextLoading()">&#8634;</button>
     </footer>
 

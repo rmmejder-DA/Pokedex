@@ -18,31 +18,40 @@ async function showLoadSpinner() {
     document.getElementById("pokedex").style.display = "none";
     document.getElementById("searchBar").style.display = "none";
     document.getElementsByClassName("LOAD")[0].style.flexDirection = "column";
-    Timeout();
+    timeout();
     let loadingElement = document.getElementById("loading");
     loadingElement.style.display = "flex";
     await pokedexLoad(offset);
 }
 
-function Timeout() {
+function timeout() {
     let loadingElement = document.getElementById("loading");
     setTimeout(() => {
         loadingElement.style.display = "none";
         document.getElementById("pokedex").style.display = "flex";
         document.getElementById("searchBar").style.display = "block";
         document.getElementById("loadButton").style.display = "block";
-    }, 3000);
+    }, 1000);
 }
 
-async function pokedexLoad(currentOffset = 0) {
+async function pokeLoad(currentOffset = 0) {
     const BASE_URL = `https://pokeapi.co/api/v2/pokemon?offset=${currentOffset}&limit=${limit}`;
     let response = await fetch(BASE_URL);
     let responseJson = await response.json();
-    allPkm = responseJson.results;
+    allPkm = allPkm.concat(responseJson.results); // fügt die neuen Pokémon zur bestehenden Liste hinzu
+    if (allPkm.length > 20) {
+        allPkm = allPkm.slice(0, 20); // begrenzt die Liste auf die ersten 20 Pokémon
+    }
+    return allPkm;
+}
+
+async function pokedexLoad(currentOffset) {
+    await pokeLoad(currentOffset);
     let pokedexContainer = document.getElementById("pokedex");
     pokedexContainer.innerHTML = "";
     for (let i = 0; i < allPkm.length; i++) {
-        let pokemonDetails = await fetch(allPkm[i].url).then(res => res.json());
+        let pokemonResponse = await fetch(allPkm[i].url);
+        let pokemonDetails = await pokemonResponse.json();
         let type = pokemonDetails.types[0].type.name;
         let imageUrl = pokemonDetails.sprites?.front_default || "";
         let cryUrl = `https://play.pokemonshowdown.com/audio/cries/${allPkm[i].name}.mp3`;
@@ -51,11 +60,27 @@ async function pokedexLoad(currentOffset = 0) {
     capitalizeString();
 }
 
+function btnStyle() {
+    let loadBtn = document.getElementById("loadButton");
+    loadBtn.style.marginTop = "unset";
+    loadBtn.style.writingMode = "vertical-rl";
+    loadBtn.style.textOrientation = "upright";
+    loadBtn.style.border = "1px solid #ccc";
+    loadBtn.style.padding = "10px";
+}
+
 function nextLoading() {
-    offset += limit;
-    if (offset >= 20) {
-        offset = 0;
+    let loadBtn = document.getElementById("loadButton");
+    const pokedexContainer = document.getElementsByClassName("page_content")[0];
+    if (loadBtn) {
+        loadBtn.innerHTML = "Neuladen";
+        pokedexContainer.style.flexDirection = "unset";
+        btnStyle();
+        loadBtn.onclick = () => {
+            location.reload();
+        };
     }
+    offset += limit;
     showLoadSpinner();
 }
 
@@ -137,6 +162,7 @@ function closeDialog(index) {
 
 document.addEventListener('click', function (event) {
     if (event.target.tagName === 'DIALOG') {
+        document.body.classList.remove("noscroll");
         event.target.close();
     }
 });
