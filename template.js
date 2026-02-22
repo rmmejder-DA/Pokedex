@@ -38,11 +38,9 @@ function pokedexTemplate(i, type, imageUrl, cryUrl, pokemonDetails) {
                 </div>
 
                     <div class="evolution" style="display:none;" id="evolution${i}">
-                        <img src="${pokemonDetails.sprites?.front_default || ""}" alt="${allPkm[i].name}">
+                        <img src="${pokemonDetails.sprites?.other?.['official-artwork']?.front_default || ""}" alt="${allPkm[i].name}">
                         <p class="evoDialog">></p>
-                        <img src="${pokemonDetails.sprites?.back_default || ""}" alt="${allPkm[i].name}">
-                        <p class="evoDialog">></p>
-                        <img src="${pokemonDetails.sprites?.front_shiny || ""}" alt="${allPkm[i].name}">
+                        <img src="${pokemonDetails.sprites?.other?.['official-artwork']?.front_shiny || ""}" alt="${allPkm[i].name}">
                     </div>
 
                 <div class="pokemon-details-none" id="HP${i}" style="display:none;">

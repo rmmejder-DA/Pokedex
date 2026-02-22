@@ -84,10 +84,9 @@ async function pokedexLoad(currentOffset) {
     let pokedexContainer = document.getElementById("pokedex");
     pokedexContainer.innerHTML = "";
     for (let i = 0; i < allPkm.length; i++) {
-        let pokemonResponse = await fetch(allPkm[i].url);
-        let pokemonDetails = await pokemonResponse.json();
-        let type = pokemonDetails.types[0].type.name;
-        let imageUrl = pokemonDetails.sprites?.front_default || "";
+        let pokemonDetails = await fetch(allPkm[i].url).then(res => res.json());
+        let type = pokemonDetails.types[0]?.type?.name || "unknown";
+        let imageUrl = pokemonDetails.sprites?.other?.['official-artwork']?.front_default || pokemonDetails.sprites?.front_default || "";
         let cryUrl = `https://play.pokemonshowdown.com/audio/cries/${allPkm[i].name}.mp3`;
         pokedexContainer.innerHTML += pokedexTemplate(i, type, imageUrl, cryUrl, pokemonDetails);
     }

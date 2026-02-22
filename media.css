@@ -37,6 +37,9 @@
 }
 
 @media (max-width: 600px) {
+    .pokemon {
+        width: 100% !important;
+    }
     h1 {
         font-size: 24px !important;
     }
@@ -79,5 +82,10 @@
     .moreFlex {
         padding: unset;
         border-radius: 50%;
+    }
+
+    .Attention {
+        font-size: 24px!important;
+
     }
 }
