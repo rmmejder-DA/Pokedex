@@ -104,33 +104,17 @@
     transition: transform 0.3s ease;
     cursor: pointer;
 }
-.btnunderImgInfo {
+
+.btnunderImgInfo,
+.btnunderImgEvo,
+.btnunderImgStat {
     width: 80px;
-    height: 12px;
+    height: 20px;
     background-color: #bbbbbb;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
-}
-
-.btnunderImgInfo:hover {
-    background-color: #f4b438;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
-    transform: translateY(1px);
-    transition: transform 0.3s ease;
-}
-.btnunderImgInfo:hover::after {
-    content: 'Info';
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 0;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-top: 5px solid #f4b438;
+    color: white;
+    font-size: 16px;
 }
 
 .more {
@@ -158,6 +142,7 @@
     transform: translateY(1px);
     transition: transform 0.3s ease;
 }
+
 .pokemon-footer {
     display: flex;
     align-items: center;

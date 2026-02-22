@@ -26,12 +26,11 @@ function pokedexTemplate(i, type, imageUrl, cryUrl, pokemonDetails) {
                 </div>
 
                     <div class="span">
-                        <span onclick="Info(${i})" class="btnunderImgInfo"></span>
-                        <span onclick="evolution(${i})" class="btnunderImgEvo"></span>
-                        <span onclick="statistic(${i})" class="btnunderImgStat"></span>
+                        <span id="sameColor${i}" onclick="info(${i})" class="btnunderImgInfo">Info</span>
+                        <span id="sameColor${i}" onclick="evolution(${i})" class="btnunderImgEvo">Evo</span>
+                        <span id="sameColor${i}" onclick="statistic(${i})" class="btnunderImgStat">Stat</span>
                     </div>
        
-                
                     <div id="pokemonInfo${i}" class="pokemon-info">
                         <p>Height: ${pokemonDetails.height}</p>
                         <p>Weight: ${pokemonDetails.weight}</p>
