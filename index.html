@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="icon" href="./pokeball.png">
+    <link rel="icon" href="./assets/img/pokeball.png">
     <link rel="stylesheet" href="./style/colors.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="./style/media.css">
@@ -21,8 +21,7 @@
     <header class="header">
         <div class="header-content">
             <h1>POKEDEX</h1>
-            <input type="search" id="searchBar" placeholder="Pokémonsuche" oninput="searchPokemon()" minlength="3"
-                title="Bitte geben Sie mindestens 3 Buchstaben ein.">
+            <input type="search" id="searchBar" placeholder="Pokémonsuche" oninput="searchPokemon()">
         </div>
     </header>
     <main class="page_content">
@@ -32,6 +31,7 @@
         </div>
         <p id="Attention" class="Attention">Achtung, laute Geräusche!</p>
         <div id="pokedex" class="pokedex"></div>
+        <dialog id="dialogPokemon" class="pokemon-dialog"></dialog>
         <button class="more" id="loadButton" onclick="nextLoading()">More...</button>
     </main>
     <footer class="footer">

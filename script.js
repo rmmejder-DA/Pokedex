@@ -161,16 +161,16 @@ function validateSearchInput() {
     if (input.length > 0 && !/^[\p{L}]+$/u.test(input)) {
         alert("Bitte geben Sie nur Buchstaben ein.");
         document.getElementById('searchBar').value = '';
+        let loadButton = document.getElementById("loadButton");
         if (loadButton) {
             loadButton.style.display = "block";
         }
         filterPokemon();
-    } else {
-        searchPokemon();
     }
 }
 
 function searchPokemon() {
+    validateSearchInput();
     filterPokemon();
     let input = document.getElementById('searchBar').value.toLowerCase();
     let loadButton = document.getElementById("loadButton");
@@ -179,7 +179,6 @@ function searchPokemon() {
     } else if (loadButton) {
         loadButton.style.display = "block";
     }
-    validateSearchInput();
 }
 
 function openDialog(index, cryUrl) {

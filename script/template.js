@@ -22,7 +22,7 @@ function pokedexTemplate(i, type, imageUrl, cryUrl, pokemonDetails) {
 
             <div class="pokemon-details">
                 <div class="pokemon-image-bckColor${allPkm[i].name}">
-                    <img class="pokemon-image-dialog" src="${imageUrl}" alt="${allPkm[i].name}">
+                    <img loading="lazy" class="pokemon-image-dialog" src="${imageUrl}" alt="${allPkm[i].name}">
                 </div>
 
                     <div class="span">
