@@ -137,7 +137,10 @@ p {
     margin: 0;
     text-shadow: #f3f3f3 0px 0px 5px;
 }
-
+.stats {
+    margin-left: 60px;
+    margin-right: 60px;
+}
 .Attention {
     color: #18aae0;
     font-size: 42px;
@@ -160,13 +163,21 @@ p {
 }
 
 .evolution {
-    display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 10px;
+    margin-top: 16px;
 }
+
 .footer-content {
     display: flex;
     align-items: center;
     gap: 10px;
+}
+
+.Pokemon {
+    color: #18aae0;
+    font-size: 42px;
+    margin: 0;
+    position: absolute;
+    top: 124px;
 }

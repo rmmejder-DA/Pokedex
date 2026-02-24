@@ -1,189 +1,212 @@
 .pokemon-image-bckColorcaterpie {
     background-color: #a8b820;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 250px;
 }
 
 .pokemon-image-bckColorbulbasaur {
     background-color: #78C850;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 250px;
 }
 
 .pokemon-image-bckColorivysaur {
     background-color: #78C850;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 250px;
 }
 
 .pokemon-image-bckColorvenusaur {
     background-color: #78C850;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 250px;
 }
 
 .pokemon-image-bckColorvenusaur {
     background-color: #78C850;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 250px;
 }
 
 .pokemon-image-bckColorcharmander {
     background-color: #F08030;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 250px;
 }
 
 .pokemon-image-bckColorcharmeleon {
     background-color: #F08030;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 250px;
 }
 
 .pokemon-image-bckColorcharizard {
     background-color: #F08030;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 250px;
 }
 
 .pokemon-image-bckColorsquirtle {
     background-color: #6890F0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 250px;
 }
 
 .pokemon-image-bckColorwartortle {
     background-color: #6890F0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 250px;
 }
 
 .pokemon-image-bckColorblastoise {
     background-color: #6890F0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 250px;
 }
 
 .pokemon-image-bckColormetapod {
     background-color: #78C850;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 250px;
 }
 
 .pokemon-image-bckColorbutterfree {
     background-color: #7b72b1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 250px;
 }
 
 .pokemon-image-bckColorweedle {
     background-color: #cd7310;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 250px;
 }
 
 .pokemon-image-bckColorkakuna {
     background-color: #f6cd31;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 250px;
 }
 
 .pokemon-image-bckColorbeedrill {
     background-color: #f4b438;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 250px;
 }
 
 .pokemon-image-bckColorpidgey {
     background-color: #b9a66c;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 250px;
 }
 
 .pokemon-image-bckColorpidgeotto {
     background-color: #ffe68b;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 250px;
 }
 
 .pokemon-image-bckColorpidgeot {
     background-color: #e6b462;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 250px;
 }
 
 .pokemon-image-bckColorrattata {
     background-color: #b473bd;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 250px;
 }
 
 .pokemon-image-bckColorraticate {
     background-color: #f4b438;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 250px;
 }
 
+.pokemon-image-bckColorspearow {
+    background-color: #b9a66c;
+}
+
+.pokemon-image-bckColorfearow {
+    background-color: #b9a66c;
+}
+
+.pokemon-image-bckColorekans {
+    background-color: #a040a0;
+}
+
+.pokemon-image-bckColorarbok {
+    background-color: #a040a0;
+}
+
+.pokemon-image-bckColorpikachu {
+    background-color: #f8d030;
+}
+
+.pokemon-image-bckColorraichu {
+    background-color: #f8d030;
+}
+.pokemon-image-bckColorsandshrew {
+    background-color: #e0c068;
+}
+.pokemon-image-bckColorsandslash {
+    background-color: #e0c068;
+}
+.pokemon-image-bckColornidoran-f {
+    background-color: #a040a0;
+}
+.pokemon-image-bckColornidorina {
+    background-color: #a040a0;
+}
+.pokemon-image-bckColornidoqueen {
+    background-color: #a040a0;
+}
+.pokemon-image-bckColornidoran-m {
+    background-color: #a040a0;
+}
+.pokemon-image-bckColornidorino {
+    background-color: #a040a0;
+}
+.pokemon-image-bckColornidoking {
+    background-color: #a040a0;
+}
+.pokemon-image-bckColorclefairy {
+    background-color: #f8a0e0;
+}
+.pokemon-image-bckColorclefable {
+    background-color: #f8a0e0;
+}
+.pokemon-image-bckColorvulpix {
+    background-color: #f08030;
+}
+.pokemon-image-bckColorninetales {
+    background-color: #f08030;
+}
+.pokemon-image-bckColorjigglypuff {
+    background-color: #f8a0e0;
+}
+.pokemon-image-bckColorwigglytuff {
+    background-color: #f8a0e0;
+}
+.pokemon-image-bckColorzubat {
+    background-color: #705898;
+}
+.pokemon-image-bckColorgolbat {
+    background-color: #705898;
+}
+.pokemon-image-bckColoroddish {
+    background-color: #78C850;
+}
+.pokemon-image-bckColorgloom {
+    background-color: #78C850;
+}
+.pokemon-image-bckColorvileplume {
+    background-color: #78C850;
+}
+.pokemon-image-bckColorparas {
+    background-color: #f4b438;
+}
+.pokemon-image-bckColorparasect {
+    background-color: #f4b438;
+}
+.pokemon-image-bckColorvenonat {
+    background-color: #a040a0;
+}
+.pokemon-image-bckColorvenomoth {
+    background-color: #a040a0;
+}
+.pokemon-image-bckColordiglett {
+    background-color: #e0c068;
+}
+.pokemon-image-bckColormuk {
+    background-color: #705848;
+}
+.pokemon-image-bckColordugtrio {
+    background-color: #e0c068;
+}
+.pokemon-image-bckColormeowth {
+    background-color: #f4b438;
+}
+.pokemon-image-bckColorpersian {
+    background-color: #f4b438;
+}
+.pokemon-image-bckColorpsyduck {
+    background-color: #6890F0;
+}
+.pokemon-image-bckColorgolduck {
+    background-color: #6890F0;
+}
+.pokemon-image-bckColormankey {
+    background-color: #f08030;
+}
+.pokemon-image-bckColorprimeape {
+    background-color: #f08030;
+}
+.pokemon-image-bckColorgrowlithe {
+    background-color: #f4b438;
+}
+.pokemon-image-bckColorarcanine {
+    background-color: #f4b438;
+}
+.pokemon-image-bckColorpoliwag {
+    background-color: #6890F0;
+}

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -21,7 +21,7 @@
     <header class="header">
         <div class="header-content">
             <h1>POKEDEX</h1>
-            <input type="search" id="searchBar" placeholder="Pokémonsuche" oninput="searchPokemon()">
+            <input type="search" title="Enter at least 3 letters" id="searchBar" placeholder="Pokémon Search" oninput="searchPokemon()">
         </div>
     </header>
     <main class="page_content">
@@ -29,9 +29,8 @@
             <div class="loader"><img src="./assets/img/ball-loading.png" alt="Loading...Ball"></div>
             <p class="loader-p">Loading...</p>
         </div>
-        <p id="Attention" class="Attention">Achtung, laute Geräusche!</p>
+        <p id="Attention" class="Attention">Attention, loud noises!</p>
         <div id="pokedex" class="pokedex"></div>
-        <dialog id="dialogPokemon" class="pokemon-dialog"></dialog>
         <button class="more" id="loadButton" onclick="nextLoading()">More...</button>
     </main>
     <footer class="footer">

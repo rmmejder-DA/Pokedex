@@ -14,19 +14,12 @@
         font-size: 30px;
         color: tomato;
         font-weight: bolder;
+        transition: transform 0.3s ease;
     }
 
     .moreFlex:hover {
-        background-color: transparent;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 30px;
-        color: tomato;
-        font-weight: bolder;
         filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
         transform: rotateZ(-150deg);
-        transition: transform 0.3s ease;
     }
 }
 
@@ -40,6 +33,7 @@
     .pokemon {
         width: 100% !important;
     }
+
     h1 {
         font-size: 24px !important;
     }
@@ -60,12 +54,6 @@
         width: 142px !important;
         max-width: unset;
     }
-
-    .evolution img {
-        width: 100px;
-        height: 90px;
-    }
-
     .footer {
         gap: 27px !important;
     }
@@ -77,6 +65,8 @@
 
     .evoDialog {
         font-size: 20px !important;
+        margin-left: 10px !important;
+        margin-right: 10px !important;
     }
 
     .moreFlex {
@@ -85,7 +75,7 @@
     }
 
     .Attention {
-        font-size: 24px!important;
+        font-size: 24px !important;
 
     }
 }
