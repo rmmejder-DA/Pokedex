@@ -11,7 +11,7 @@
         border: none;
         border-radius: 5px;
         cursor: pointer;
-        font-size: 30px;
+        font-size: 20px;
         color: tomato;
         font-weight: bolder;
         transition: transform 0.3s ease;
@@ -19,7 +19,6 @@
 
     .moreFlex:hover {
         filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
-        transform: rotateZ(-150deg);
     }
 }
 

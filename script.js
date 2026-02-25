@@ -69,15 +69,16 @@ async function showLoadSpinner() {
     }
     await pokedexLoad(offset);
     timeout();
+    return allPkm
 }
 
 async function pokeLoad(currentOffset = 0) {
     const BASE_URL = `https://pokeapi.co/api/v2/pokemon?offset=${currentOffset}&limit=${limit}`;
     let response = await fetch(BASE_URL);
     let responseJson = await response.json();
-    allPkm = allPkm.concat(responseJson.results); 
+    allPkm = allPkm.concat(responseJson.results); // Alle Pokémon in allPkm speichern
     if (allPkm.length > 60) {
-        allPkm = allPkm.slice(0, 60);
+        allPkm = allPkm.slice(0, 60); //
     }
     return allPkm;
 }
@@ -195,18 +196,34 @@ function closeDialog(index) {
     }
 }
 
-function navigatePokemon(currentIndex, direction) {
-    let newIndex = currentIndex + direction;
-    if (newIndex < 0) {
-        newIndex = allPkm.length - 1;
+function navPokSearch(currentIndex, direction, visibleIndices) {
+        let currentVisibleIndex = visibleIndices.indexOf(currentIndex);
+    let newVisibleIndex = currentVisibleIndex + direction;
+    if (newVisibleIndex < 0) {
+        newVisibleIndex = visibleIndices.length - 1;
     }
-    if (newIndex >= allPkm.length) {
-        newIndex = 0;
+    if (newVisibleIndex >= visibleIndices.length) {
+        newVisibleIndex = 0;
     }
+    let newIndex = visibleIndices[newVisibleIndex];
+    return newIndex;
+}
+
+function navigatePokemon(currentIndex) {
+    let pokemonElements = document.getElementsByClassName('pokemon');
+    let visibleIndices = [];
+    for (let i = 0; i < pokemonElements.length; i++) {
+        if (pokemonElements[i].style.display !== 'none') {
+            visibleIndices.push(i);
+        }
+    } 
+    if (visibleIndices.length === 0) {
+        return;
+    }
+    const newIndex = navPokSearch(currentIndex, 1, visibleIndices);
     closeDialog(currentIndex);
     const newCryUrl = `https://play.pokemonshowdown.com/audio/cries/${allPkm[newIndex].name}.mp3`;
     openDialog(newIndex, newCryUrl);
-
 }
 
 document.addEventListener('click', function (event) {
