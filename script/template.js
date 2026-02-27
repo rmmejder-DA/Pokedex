@@ -1,5 +1,5 @@
 function pokedexTemplate(i, type, imageUrl, cryUrl, pokemonDetails) {
-    return `
+            return `
         <div class="pokemon">
             <header class="pokemon-header">
             <h2>${allPkm[i].name}</h2>
@@ -51,4 +51,4 @@ function pokedexTemplate(i, type, imageUrl, cryUrl, pokemonDetails) {
                 <p class="stats">Stats: ${pokemonDetails.stats?.map(stat => `${stat?.stat?.name}: ${stat?.base_stat}`)}</p>
             </div>
             </dialog>`;
-}
+        }

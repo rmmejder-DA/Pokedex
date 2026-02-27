@@ -1,57 +1,103 @@
-const limit = 15;
-let offset = 0;
+let allPokemons = [];
 let allPkm = [];
+let visibleCount = 10;
+let offset = 0;
+const API_URL = "https://pokeapi.co/api/v2/pokemon?limit=60";
+
+async function fetchPokemons() {
+    try {
+        const res = await fetch(API_URL);
+        if (!res.ok) throw new Error(`HTTP Fehler: ${res.status}`);
+        const data = await res.json();
+        allPokemons = data.results;
+        allPkm = await Promise.all(
+            allPokemons.map(pokemon => fetch(pokemon.url).then(res => res.json()))
+        );
+        attention();
+        renderPokemons();
+    } catch (err) {
+        document.getElementById("pokedex").innerHTML = `<p style="color: red">Fehler: ${err.message}</p>`;
+    }
+    capitalizeString();
+}
+
+function renderPokemons() {
+    const pokemonListDiv = document.getElementById("pokedex");
+    pokemonListDiv.innerHTML = "";
+    for (let i = 0; i < Math.min(visibleCount, allPokemons.length); i++) {
+        const pokemon = allPokemons[i];
+        const pokemonDetails = allPkm[i] || {};
+        const type = pokemonDetails.types?.[0]?.type?.name || "unknown";
+        const imageUrl = pokemonDetails.sprites?.other?.['official-artwork']?.front_default || "";
+        const cryUrl = `https://play.pokemonshowdown.com/audio/cries/${pokemon.name}.mp3`;
+        pokemonListDiv.innerHTML += pokedexTemplate(i, type, imageUrl, cryUrl, pokemonDetails);
+    }
+    visibleCountCheck();
+}
+
+function visibleCountCheck() {
+    if (visibleCount < allPokemons.length) {
+        const pageContent = document.getElementsByClassName("page_content")[0];
+        if (pageContent) {
+            pageContent.style.flexDirection = "column";
+        }
+        const button = document.createElement("button");
+        button.textContent = "More...";
+        button.className = "more";
+        button.id = "loadButton";
+        button.style.display = "none";
+        button.onclick = loadMore;
+        pageContent.appendChild(button);
+    }
+    capitalizeString();
+}
+
+function loadMore() {
+    visibleCount = Math.min(visibleCount + 10, allPokemons.length);
+    const btn = document.getElementById("loadButton");
+    if (allPokemons.length <= visibleCount && btn) {
+        btn.innerHTML = "Reload";
+        btn.onclick = () => {
+            location.reload();
+        };
+    }
+    renderPokemons();
+}
+
+fetchPokemons();
 
 function capitalizeString() {
     let pokedexElement = document.getElementById("pokedex");
-    let H2 = pokedexElement.getElementsByTagName("h2");
-    for (let i = 0; i < H2.length; i++) {
-        let string = H2[i].innerHTML;
-        if (string.length > 0) {
-            H2[i].innerHTML = string[0].toUpperCase() + string.slice(1);
+    if (pokedexElement) {
+        let H2 = pokedexElement.getElementsByTagName("h2");
+        for (let i = 0; i < H2.length; i++) {
+            let string = H2[i].innerHTML;
+            if (string.length > 0) {
+                H2[i].innerHTML = string[0].toUpperCase() + string.slice(1);
+            }
         }
     }
 }
 
-function updateBtn() {
-    let btnFooter = document.getElementById("loadButtonFooter");
-    if (btnFooter) {
-        btnFooter.innerHTML = "Reload";
-        btnFooter.onclick = () => {
-            location.reload();
-        };
+function timeout() {
+    let loadingElement = document.getElementById("loading");
+    if (loadingElement) {
+        setTimeout(() => {
+            loadingElement.style.display = "none";
+            document.getElementById("pokedex").style.display = "flex";
+            document.getElementById("searchBar").style.display = "block";
+            document.getElementById("loadButton").style.display = "block";
+        }, 3000);
     }
 }
 
-async function nextLoading() {
-    let loadBtn = document.getElementById("loadButton");
-    const pokedexContainer = document.getElementsByClassName("page_content")[0];
-    if (loadBtn && pokedexContainer && offset >= 40) {
-        btnStyle();
-        updateBtn();
-        loadBtn.innerHTML = "Reload";
-        pokedexContainer.style.flexDirection = "unset";
-        loadBtn.onclick = () => {
-            location.reload();
-        };
-    } 
-    await showLoadSpinner();
-}
-
-function timeout() {
-    let loadingElement = document.getElementById("loading");
-    setTimeout(() => {
-        loadingElement.style.display = "none";
-        document.getElementById("pokedex").style.display = "flex";
-        document.getElementById("searchBar").style.display = "block";
-        document.getElementById("loadButton").style.display = "block";
-    }, 3000);
-}
-
 async function showLoadSpinner() {
-    document.getElementById("loadButton").style.display = "none";
-    document.getElementById("pokedex").style.display = "none";
-    document.getElementById("searchBar").style.display = "none";
+    let loadButton = document.getElementById("loadButton");
+    let pokedexDiv = document.getElementById("pokedex");
+    let searchBar = document.getElementById("searchBar");
+    if (loadButton) loadButton.style.display = "none";
+    if (pokedexDiv) pokedexDiv.style.display = "none";
+    if (searchBar) searchBar.style.display = "none";
     let loadElement = document.getElementsByClassName("LOAD")[0];
     if (loadElement) {
         loadElement.style.flexDirection = "column";
@@ -60,52 +106,19 @@ async function showLoadSpinner() {
     if (loadingElement) {
         loadingElement.style.display = "flex";
     }
-    await pokedexLoad(offset);
     timeout();
-    return allPkm;
+    return allPokemons;
 }
 
-async function pokeLoad(currentOffset = 0) {
-    const BASE_URL = `https://pokeapi.co/api/v2/pokemon?offset=${currentOffset}&limit=${limit}`;
-    let response = await fetch(BASE_URL);
-    let responseJson = await response.json();
-    allPkm = allPkm.concat(responseJson.results);
-    if (responseJson.next) {
-        offset += limit;
-    }
-        return allPkm;
-}
-
-async function pokedexLoad(currentOffset) {
-    await pokeLoad(currentOffset);
-    let pokedexContainer = document.getElementById("pokedex");
-    pokedexContainer.innerHTML = "";
-    for (let i = 0; i < allPkm.length; i++) {
-        let pokemonDetails = await fetch(allPkm[i].url).then(res => res.json());
-        let type = pokemonDetails.types[0]?.type?.name || "unknown";
-        let imageUrl = pokemonDetails.sprites?.other?.['dream_world']?.front_default || pokemonDetails.sprites?.front_default || "";
-        let cryUrl = `https://play.pokemonshowdown.com/audio/cries/${allPkm[i].name}.mp3`;
-        pokedexContainer.innerHTML += pokedexTemplate(i, type, imageUrl, cryUrl, pokemonDetails); 
-    }
-    capitalizeString();
-    attention();
-}
 
 function attention() {
     let attentionElement = document.getElementById("Attention");
-    attentionElement.style.display = "block";
-    setTimeout(() => {
-        attentionElement.style.display = "none";
-    }, 2000);
-}
-
-function btnStyle() {
-    let loadBtn = document.getElementById("loadButton");
-    loadBtn.style.marginTop = "unset";
-    loadBtn.style.writingMode = "vertical-rl";
-    loadBtn.style.textOrientation = "upright";
-    loadBtn.style.border = "1px solid #ccc";
-    loadBtn.style.padding = "10px";
+    if (attentionElement) {
+        attentionElement.style.display = "block";
+        setTimeout(() => {
+            attentionElement.style.display = "none";
+        }, 2000);
+    }
 }
 
 function toggleTabDisplay(index, infoDisplay, evolutionDisplay, hpDisplay) {
@@ -134,13 +147,14 @@ function statistic(index) {
 function filterPokemon() {
     let input = document.getElementById('searchBar').value.toLowerCase();
     let pokemonElements = document.getElementsByClassName('pokemon');
-    allPkm.forEach((pokemon, index) => {
-        if (pokemon.name.toLowerCase().includes(input.length > 2 ? input : '')) {
-            pokemonElements[index].style.display = '';
-        } else {
-            pokemonElements[index].style.display = 'none';
+    for (let i = 0; i < pokemonElements.length; i++) {
+        let pokemon = allPkm[i];
+        if (pokemon && pokemon.name.toLowerCase().includes(input.length > 2 ? input : '')) {
+            pokemonElements[i].style.display = '';
+        } else if (pokemonElements[i]) {
+            pokemonElements[i].style.display = 'none';
         }
-    });
+    }
 }
 
 function validateSearchInput() {
@@ -202,7 +216,7 @@ function navPokSearch(currentIndex, direction, visibleIndices) {
     return newIndex;
 }
 
-function navigatePokemon(currentIndex) {
+function navigatePokemon(currentIndex, direction) {
     let pokemonElements = document.getElementsByClassName('pokemon');
     let visibleIndices = [];
     for (let i = 0; i < pokemonElements.length; i++) {
@@ -210,13 +224,11 @@ function navigatePokemon(currentIndex) {
             visibleIndices.push(i);
         }
     }
-    if (visibleIndices.length === 0) {
-        return;
+    if (visibleIndices.length > 0) {
+        let newIndex = navPokSearch(currentIndex, direction, visibleIndices);
+        closeDialog(currentIndex);
+        openDialog(newIndex, `https://play.pokemonshowdown.com/audio/cries/${allPkm[newIndex].name}.mp3`);
     }
-    const newIndex = navPokSearch(currentIndex, 1, visibleIndices);
-    closeDialog(currentIndex);
-    const newCryUrl = `https://play.pokemonshowdown.com/audio/cries/${allPkm[newIndex].name}.mp3`;
-    openDialog(newIndex, newCryUrl);
 }
 
 document.addEventListener('click', function (event) {
@@ -227,6 +239,7 @@ document.addEventListener('click', function (event) {
 });
 
 function sameColor(index) {
+    if (!allPkm[index]) return;
     let bckGrImg = document.querySelector(`.pokemon-image-bckColor${allPkm[index].name}`);
     if (bckGrImg) {
         let computedStyle = window.getComputedStyle(bckGrImg);

@@ -1,32 +1,3 @@
-@media (max-width: 1000px) {
-    .more {
-        display: none !important;
-    }
-
-    .moreFlex {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: transparent;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 20px;
-        color: tomato;
-        font-weight: bolder;
-        transition: transform 0.3s ease;
-    }
-
-    .moreFlex:hover {
-        filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
-    }
-}
-
-@media (min-width: 1000px) {
-    .moreFlex {
-        display: none !important;
-    }
-}
 
 @media (max-width: 600px) {
     .pokemon {
