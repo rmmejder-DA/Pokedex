@@ -41,6 +41,9 @@
         font-size: 18px;
         gap: 30px !important;
     }
+    .made {
+        font-size: 18px !important;
+    }
 
     .btnunderImg {
         width: 64px;
@@ -54,7 +57,7 @@
         max-width: unset;
     }
     .footer {
-        gap: 27px !important;
+        gap: 10px !important;
     }
 
     .evolution img {
@@ -70,7 +73,7 @@
 
     .moreFlex {
         padding: unset;
-        border-radius: 50%;
+        font-size: 18px !important;
     }
 
     .Attention {

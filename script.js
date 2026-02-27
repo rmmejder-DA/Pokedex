@@ -1,4 +1,4 @@
-const limit = 10;
+const limit = 15;
 let offset = 0;
 let allPkm = [];
 
@@ -16,13 +16,7 @@ function capitalizeString() {
 function updateBtn() {
     let btnFooter = document.getElementById("loadButtonFooter");
     if (btnFooter) {
-        btnFooter.innerHTML = "&#x21BB;";
-        btnFooter.onmouseover = () => {
-            btnFooter.style.transform = "rotateZ(150deg)";
-        };
-        btnFooter.onmouseout = () => {
-            btnFooter.style.transform = "none";
-        };
+        btnFooter.innerHTML = "Reload";
         btnFooter.onclick = () => {
             location.reload();
         };
@@ -32,16 +26,15 @@ function updateBtn() {
 async function nextLoading() {
     let loadBtn = document.getElementById("loadButton");
     const pokedexContainer = document.getElementsByClassName("page_content")[0];
-    if (loadBtn && pokedexContainer && offset >= 60) {
-        loadBtn.innerHTML = "Neuladen";
-        pokedexContainer.style.flexDirection = "unset";
+    if (loadBtn && pokedexContainer && offset >= 40) {
         btnStyle();
         updateBtn();
+        loadBtn.innerHTML = "Reload";
+        pokedexContainer.style.flexDirection = "unset";
         loadBtn.onclick = () => {
             location.reload();
         };
-    }
-    offset += limit;
+    } 
     await showLoadSpinner();
 }
 
@@ -69,18 +62,18 @@ async function showLoadSpinner() {
     }
     await pokedexLoad(offset);
     timeout();
-    return allPkm
+    return allPkm;
 }
 
 async function pokeLoad(currentOffset = 0) {
     const BASE_URL = `https://pokeapi.co/api/v2/pokemon?offset=${currentOffset}&limit=${limit}`;
     let response = await fetch(BASE_URL);
     let responseJson = await response.json();
-    allPkm = allPkm.concat(responseJson.results); // Alle Pokémon in allPkm speichern
-    if (allPkm.length > 60) {
-        allPkm = allPkm.slice(0, 60); //
+    allPkm = allPkm.concat(responseJson.results);
+    if (responseJson.next) {
+        offset += limit;
     }
-    return allPkm;
+        return allPkm;
 }
 
 async function pokedexLoad(currentOffset) {
@@ -92,7 +85,7 @@ async function pokedexLoad(currentOffset) {
         let type = pokemonDetails.types[0]?.type?.name || "unknown";
         let imageUrl = pokemonDetails.sprites?.other?.['dream_world']?.front_default || pokemonDetails.sprites?.front_default || "";
         let cryUrl = `https://play.pokemonshowdown.com/audio/cries/${allPkm[i].name}.mp3`;
-        pokedexContainer.innerHTML += pokedexTemplate(i, type, imageUrl, cryUrl, pokemonDetails);
+        pokedexContainer.innerHTML += pokedexTemplate(i, type, imageUrl, cryUrl, pokemonDetails); 
     }
     capitalizeString();
     attention();
@@ -197,7 +190,7 @@ function closeDialog(index) {
 }
 
 function navPokSearch(currentIndex, direction, visibleIndices) {
-        let currentVisibleIndex = visibleIndices.indexOf(currentIndex);
+    let currentVisibleIndex = visibleIndices.indexOf(currentIndex);
     let newVisibleIndex = currentVisibleIndex + direction;
     if (newVisibleIndex < 0) {
         newVisibleIndex = visibleIndices.length - 1;
@@ -216,7 +209,7 @@ function navigatePokemon(currentIndex) {
         if (pokemonElements[i].style.display !== 'none') {
             visibleIndices.push(i);
         }
-    } 
+    }
     if (visibleIndices.length === 0) {
         return;
     }

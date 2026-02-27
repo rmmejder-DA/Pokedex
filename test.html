@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pokémon Anzeige</title>
+<style>
+  body { font-family: Arial, sans-serif; background: #f4f4f4; padding: 20px; }
+  .pokemon-container { display: flex; flex-wrap: wrap; gap: 15px; }
+  .pokemon-card {
+    background: white;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    width: 120px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  .pokemon-card img { width: 96px; height: 96px; }
+</style>
+</head>
+<body>
+
+<h1>Pokémon Anzeige</h1>
+<div id="pokemon-container" class="pokemon-container"></div>
+<button type="button" onclick="loadPokemons()">More...</button>
+<script>
+async function loadPokemons() {
+    const container = document.getElementById('pokemon-container');
+    container.innerHTML = "<p>Lade Pokémon...</p>";
+
+    try {
+        // 1. Hole die ersten 60 Pokémon
+        const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=60');
+        if (!response.ok) throw new Error(`HTTP-Fehler: ${response.status}`);
+        const data = await response.json();
+
+        // 2. Wähle zufällig 10 Pokémon aus
+        const shuffled = data.results.sort(() => 0.5 - Math.random());
+        const selected = shuffled.slice(0, 10);
+
+        // 3. Lade Details (Name + Bild) für die 10 Pokémon
+        const pokemonDetails = await Promise.all(
+            selected.map(async (p) => {
+                const res = await fetch(p.url);
+                if (!res.ok) throw new Error(`Fehler beim Laden von ${p.name}`);
+                return res.json();
+            })
+        );
+
+        // 4. Anzeige im DOM
+        container.innerHTML = "";
+        pokemonDetails.forEach(pokemon => {
+            const card = document.createElement('div');
+            card.className = 'pokemon-card';
+            card.innerHTML = `
+                <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}">
+                <h4>${pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h4>
+            `;
+            container.appendChild(card);
+        });
+
+    } catch (error) {
+        container.innerHTML = `<p style="color:red;">Fehler: ${error.message}</p>`;
+        console.error(error);
+    }
+}
+
+// Starte beim Laden
+loadPokemons();
+</script>
+
+</body>
+</html>

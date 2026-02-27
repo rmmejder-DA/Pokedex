@@ -21,7 +21,8 @@
     <header class="header">
         <div class="header-content">
             <h1>POKEDEX</h1>
-            <input type="search" title="Enter at least 3 letters" id="searchBar" placeholder="Pokémon Search" oninput="searchPokemon()">
+            <input type="search" title="Enter at least 3 letters" id="searchBar" placeholder="Pokémon Search"
+                oninput="searchPokemon()">
         </div>
     </header>
     <main class="page_content">
@@ -30,13 +31,14 @@
             <p class="loader-p">Loading...</p>
         </div>
         <p id="Attention" class="Attention">Attention, loud noises!</p>
-        <div id="pokedex" class="pokedex"></div>
         <button class="more" id="loadButton" onclick="nextLoading()">More...</button>
+        <div id="pokedex" class="pokedex"></div>
     </main>
     <footer class="footer">
         <div class="footer-content">
             <img style="width: 32px;" src="./assets/img/pokeball.png" alt="Pokeball">
-            <p>Made by <a class="foot_a" href="https://github.com/rmmejder-DA" target="_blank" rel="noopener">Max
+            <p class="made">Made by <a class="foot_a" href="https://github.com/rmmejder-DA" target="_blank"
+                    rel="noopener">Max
                     Mejder</a></p>
         </div>
         <button class="moreFlex" id="loadButtonFooter" onclick="nextLoading()">More...</button>
