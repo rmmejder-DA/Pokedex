@@ -57,6 +57,7 @@ function loadMore() {
     const btn = document.getElementById("loadButton");
     if (allPokemons.length <= visibleCount && btn) {
         btn.innerHTML = "Reload";
+        btn.style.color = "red";
         btn.onclick = () => {
             location.reload();
         };
