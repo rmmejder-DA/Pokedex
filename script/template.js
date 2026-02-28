@@ -2,10 +2,10 @@ function pokedexTemplate(i, type, imageUrl, cryUrl ) {
             return `
         <div class="pokemon" tabindex="0">
             <header class="pokemon-header">
-            <h2>${allPkm[i].name}</h2>
+            <h2>${allPokemons[i].name}</h2>
             </header>
-            <div class="pokflex pokemon-image-bckColor${allPkm[i].name}">
-            <img class="pokemon-image" onclick="openDialog(${i}, '${cryUrl}')" src="${imageUrl}" alt="${allPkm[i].name}">
+            <div class="pokflex pokemon-image-bckColor${allPokemons[i].name}">
+            <img class="pokemon-image" onclick="openDialog(${i}, '${cryUrl}')" src="${imageUrl}" alt="${allPokemons[i].name}">
             </div>
             <footer class="pokemon-footer">
             <div class="pokemon-type">
@@ -18,14 +18,14 @@ function pokedexTemplate(i, type, imageUrl, cryUrl ) {
 function dialogPokemonTemplate(i, imageUrl, pokemonDetails) {
     return `
             <header class="dialog-header">
-                <h2>${allPkm[i].name}</h2>
+                <h2>${allPokemons[i].name}</h2>
                 <button class="close-button" onclick="closeDialog(${i})">X</button>
             </header>
 
             <div tabindex="0" class="pokemon-details">
-                <div class="pokflex pokemonDialogBck${allPkm[i].name}">
+                <div class="pokflex pokemonDialogBck${allPokemons[i].name}">
                     <button id="navButton${i}-prev" class="nav-button" onclick="navigatePokemon(${i}, -1)">&#x23F4;</button>
-                    <img class="pokemon-image-dialog" src="${imageUrl}" alt="${allPkm[i].name}">
+                    <img class="pokemon-image-dialog" src="${imageUrl}" alt="${allPokemons[i].name}">
                     <button id="navButton${i}-next" class="nav-button" onclick="navigatePokemon(${i}, 1)">&#x23F5;</button>
                 </div>
 
@@ -42,9 +42,9 @@ function dialogPokemonTemplate(i, imageUrl, pokemonDetails) {
             </div>
 
             <div tabindex="0" class="evolution" style="display:none;" id="evolution${i}">
-                <img src="${pokemonDetails.sprites?.other?.['official-artwork']?.front_default || ""}" alt="${allPkm[i].name}">
+                <img src="${pokemonDetails.sprites?.other?.['official-artwork']?.front_default || ""}" alt="${allPokemons[i].name}">
                 <p class="evoDialog">&#x23F2;</p>
-                <img src="${pokemonDetails.sprites?.other?.['official-artwork']?.front_shiny || ""}" alt="${allPkm[i].name}">
+                <img src="${pokemonDetails.sprites?.other?.['official-artwork']?.front_shiny || ""}" alt="${allPokemons[i].name}">
             </div>
 
             <div tabindex="0" class="pokemon-details-none" id="HP${i}" style="display:none;">

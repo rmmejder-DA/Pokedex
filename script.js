@@ -1,5 +1,4 @@
 let allPokemons = [];
-let allPkm = [];
 let visibleCount = 15;
 let offset = 0;
 const limit = 15;
@@ -21,32 +20,42 @@ function showLoadSpinner() {
 }
 
 function btnDisplay() {
-        const button = document.getElementById("loadButton");
+    const button = document.getElementById("loadButton");
     if (button) {
         button.style.display = "none";
     }
 }
 
 function update() {
-    attention();
     renderPokemons();
     renderColor();
 }
 
+async function detailsResult(detailsPromises) {
+        const detailsResults = await Promise.all(detailsPromises);
+    detailsResults.forEach((details, index) => {
+        if (details) {
+            allPokemons.push(details);
+        } else {
+            allPokemons.push(data.results[index]);
+        }
+    });
+}
+
 async function promise(data) {
-     allPokemons = data.results;
-        allPkm = await Promise.all(
-            allPokemons.map(async (pokemon) => {
-                try {
-                    const res = await fetch(pokemon.url);
-                    if (!res.ok) throw new Error(`HTTP Fehler: ${res.status}`);
-                    return await res.json();
-                } catch (err) {
-                    console.error(`Fehler beim Laden von ${pokemon.name}: ${err.message}`);
-                    return {};}
-            })
-        );
-        update();
+    const detailsPromises = data.results.map(async (pokemon) => {
+        try {
+            const res = await fetch(pokemon.url);
+            if (!res.ok) throw new Error(`HTTP Fehler: ${res.status}`);
+            return await res.json();
+        } catch (err) {
+            console.error(`Fehler beim Abrufen der Details für ${pokemon.name}: ${err.message}`);
+            return null;
+        }
+    });
+    await detailsResult(detailsPromises)
+    visibleCount += limit;
+    update();
 }
 
 async function fetchPokemons() {
@@ -65,7 +74,7 @@ async function fetchPokemons() {
 fetchPokemons();
 
 function renderColor() {
-    allPkm.forEach((pokemon) => {
+    allPokemons.forEach((pokemon) => {
         let type = pokemon.types?.[0]?.type?.name || "unknown";
         let color = colorMap[type] || "#68A090";
         let pkmDialog = document.querySelector(`.pokemonDialogBck${pokemon.name}`);
@@ -84,7 +93,7 @@ function renderPokemons() {
     pokemonListDiv.innerHTML = "";
     for (let i = 0; i < Math.min(visibleCount, allPokemons.length); i++) {
         const pokemon = allPokemons[i];
-        const pokemonDetails = allPkm[i] || {};
+        const pokemonDetails = allPokemons[i] || {};
         const type = pokemonDetails.types?.[0]?.type?.name || "unknown";
         const imageUrl = pokemonDetails.sprites?.other?.['official-artwork']?.front_default || "";
         const cryUrl = `https://play.pokemonshowdown.com/audio/cries/${pokemon.name}.mp3`;
@@ -95,7 +104,7 @@ function renderPokemons() {
 function renderDialog(i) {
     const dialog = document.getElementById(`dialogpokemon`);
     if (!dialog) return;
-    const pokemonDetails = allPkm[i] || {};
+    const pokemonDetails = allPokemons[i] || {};
     const imageUrl = pokemonDetails.sprites?.other?.['official-artwork']?.front_default || "";
     dialog.innerHTML = dialogPokemonTemplate(i, imageUrl, pokemonDetails);
     capitalizeString();
@@ -105,7 +114,6 @@ function renderDialog(i) {
 
 function loadMore() {
     offset += limit;
-    visibleCount += limit;
     fetchPokemons();
 }
 
@@ -129,9 +137,11 @@ function capitalizeString() {
 
 function timeout() {
     let loadingElement = document.getElementById("loading");
-    if (loadingElement) {
+    let AttentionElement = document.getElementById("Attention");
+    if (loadingElement && AttentionElement) {
         setTimeout(() => {
             loadingElement.style.display = "none";
+            AttentionElement.style.display = "none";
             document.getElementById("pokedex").style.display = "flex";
             document.getElementById("searchBar").style.display = "block";
             document.getElementById("loadButton").style.display = "block";
@@ -176,7 +186,7 @@ function filterPokemon() {
     let input = document.getElementById('searchBar').value.toLowerCase();
     let pokemonElements = document.getElementsByClassName('pokemon');
     for (let i = 0; i < pokemonElements.length; i++) {
-        let pokemon = allPkm[i];
+        let pokemon = allPokemons[i];
         if (pokemon && pokemon.name.toLowerCase().includes(input.length > 2 ? input : '')) {
             pokemonElements[i].style.display = '';
         } else if (pokemonElements[i]) {
@@ -255,12 +265,12 @@ function navigatePokemon(currentIndex, direction) {
     if (visibleIndices.length > 0) {
         let newIndex = navPokSearch(currentIndex, direction, visibleIndices);
         closeDialog();
-        openDialog(newIndex, `https://play.pokemonshowdown.com/audio/cries/${allPkm[newIndex].name}.mp3`);
+        openDialog(newIndex, `https://play.pokemonshowdown.com/audio/cries/${allPokemons[newIndex].name}.mp3`);
     }
 }
 
 function sameColor(index) {
-    let type = allPkm[index].types?.[0]?.type?.name || "unknown";
+    let type = allPokemons[index].types?.[0]?.type?.name || "unknown";
     let color = colorMap[type] || "#68A090";
     let sameColorElements = document.querySelectorAll(`#sameColor${index}`);
     sameColorElements.forEach(element => {
@@ -268,12 +278,12 @@ function sameColor(index) {
     });
 }
 
-document.addEventListener('keydown', function (event) {
+function keyDownHandler(event) {
     let dialog = document.getElementById(`dialogpokemon`);
     if (dialog && dialog.open) {
         let h2Element = dialog.querySelector('h2');
         if (h2Element) {
-            let currentIndex = allPkm.findIndex(pokemon => pokemon.name === h2Element.textContent.toLowerCase());
+            let currentIndex = allPokemons.findIndex(pokemon => pokemon.name === h2Element.textContent.toLowerCase());
             if (currentIndex !== -1) {
                 if (event.key === 'ArrowLeft') {
                     navigatePokemon(currentIndex, -1);
@@ -286,11 +296,15 @@ document.addEventListener('keydown', function (event) {
             closeDialog();
         }
     }
-});
+}
 
-document.addEventListener('click', function (event) {
+document.addEventListener('keydown', keyDownHandler);
+
+function clickOutsideDialog(event) {
     if (event.target.tagName === 'DIALOG') {
         document.body.classList.remove("noscroll");
         event.target.close();
     }
-});
+}
+
+document.addEventListener('click', clickOutsideDialog);
