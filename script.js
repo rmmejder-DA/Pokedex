@@ -2,8 +2,7 @@ let allPokemons = [];
 let allPkm = [];
 let visibleCount = 15;
 let offset = 0;
-const limit = 500;
-const API_URL = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`;
+const limit = 15;
 
 function showLoadSpinner() {
     let pokedexDiv = document.getElementById("pokedex");
@@ -52,6 +51,7 @@ async function promise(data) {
 
 async function fetchPokemons() {
     try {
+        const API_URL = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`;
         const res = await fetch(API_URL);
         if (!res.ok) throw new Error(`HTTP Fehler: ${res.status}`);
         const data = await res.json();
@@ -104,18 +104,9 @@ function renderDialog(i) {
 }
 
 function loadMore() {
-    visibleCount = Math.min(visibleCount + 15, allPokemons.length);
-    const btn = document.getElementById("loadButton");
-    if (allPokemons.length <= visibleCount && btn) {
-        btn.innerHTML = "Reload";
-        btn.style.color = "red";
-        btn.onclick = () => {
-            location.reload();
-        };
-    }
-    renderPokemons();
-    renderColor();
-    capitalizeString();
+    offset += limit;
+    visibleCount += limit;
+    fetchPokemons();
 }
 
 function capitalizeString() {
