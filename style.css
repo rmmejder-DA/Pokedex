@@ -118,6 +118,7 @@
 }
 
 .more {
+    display: none;
     padding: 0 55px;
     background-color: #f4b438;
     border: none;
