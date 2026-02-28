@@ -2,7 +2,8 @@ let allPokemons = [];
 let allPkm = [];
 let visibleCount = 15;
 let offset = 0;
-const API_URL = "https://pokeapi.co/api/v2/pokemon?limit=1000&offset=0";
+const limit = 500;
+const API_URL = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`;
 
 function showLoadSpinner() {
     let pokedexDiv = document.getElementById("pokedex");
@@ -33,21 +34,35 @@ function update() {
     renderColor();
 }
 
+async function promise(data) {
+     allPokemons = data.results;
+        allPkm = await Promise.all(
+            allPokemons.map(async (pokemon) => {
+                try {
+                    const res = await fetch(pokemon.url);
+                    if (!res.ok) throw new Error(`HTTP Fehler: ${res.status}`);
+                    return await res.json();
+                } catch (err) {
+                    console.error(`Fehler beim Laden von ${pokemon.name}: ${err.message}`);
+                    return {};}
+            })
+        );
+        update();
+}
+
 async function fetchPokemons() {
     try {
         const res = await fetch(API_URL);
         if (!res.ok) throw new Error(`HTTP Fehler: ${res.status}`);
         const data = await res.json();
-        allPokemons = data.results;
-        allPkm = await Promise.all(
-            allPokemons.map(pokemon => fetch(pokemon.url).then(res => res.json()))
-        );
-        update();
+        await promise(data);
     } catch (err) {
         document.getElementById("pokedex").innerHTML = `<p style="color: red">Fehler: ${err.message}</p>`;
     }
     capitalizeString();
 }
+
+fetchPokemons();
 
 function renderColor() {
     allPkm.forEach((pokemon) => {
@@ -102,8 +117,6 @@ function loadMore() {
     renderColor();
     capitalizeString();
 }
-
-fetchPokemons();
 
 function capitalizeString() {
     let pokedexElement = document.getElementById("pokedex");
