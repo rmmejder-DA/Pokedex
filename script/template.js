@@ -24,6 +24,7 @@ function dialogPokemonTemplate(i, imageUrl, pokemonDetails) {
 
             <div tabindex="0" class="pokemon-details">
                 <div class="pokflex pokemonDialogBck${allPokemons[i].name}">
+                    <button id="playCry${i}" class="play-cry-button" onclick="playCry(${i})">&#x266B;</button>
                     <button id="navButton${i}-prev" class="nav-button" onclick="navigatePokemon(${i}, -1)">&#x23F4;</button>
                     <img class="pokemon-image-dialog" src="${imageUrl}" alt="${allPokemons[i].name}">
                     <button id="navButton${i}-next" class="nav-button" onclick="navigatePokemon(${i}, 1)">&#x23F5;</button>
